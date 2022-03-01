@@ -1,29 +1,42 @@
 export default class Animal {
     constructor(nombre, edad, img, comentarios, sonido) {
-        this._nombre = nombre;
-        this._edad = edad;
-        this._img = img;
-        this._comentarios = comentarios;
-        this._sonido = sonido;
+        let _nombre = nombre;
+        let _edad = edad;
+        let _img = img;
+        let _comentarios = comentarios;
+        let _sonido = sonido;
+
+        this.getNombre = () => _nombre;
+        this.getEdad = () => _edad;
+        this.getImg = () => _img;
+        this.getSonido = () => _sonido;
+
+        this.setComentarios = (nuevoComentarios) => _comentarios = nuevoComentarios;
+        this.setSonido = (nuevoSonido) => _sonido = nuevoSonido;
+
     }
 
     get nombre() {
-        return this._nombre;
+        return this.getNombre();
     }
 
     get edad() {
-        return this._edad;
+        return this.getEdad();
     }
     
     get img() {
-        return this._img;
+        return this.getImg();
     }
 
     get sonido() {
-        return this._sonido;
+        return this.getSonido();
     }
 
     set comentarios(nuevo_comentarios) {
-        return this._comentarios = nuevo_comentarios;
+        this.setComentarios(nuevo_comentarios);
+    }
+
+    set sonido(nuevo_sonido) {
+        this.setSonido(nuevo_sonido);
     }
 }

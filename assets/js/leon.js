@@ -5,7 +5,7 @@ export default class Leon extends Animal {
         super(nombre, edad, img, comentarios, sonido);
     }
 
-    rugir() {
-
+    Rugir() {   
+        this.setSonido("assets/sounds/Rugido.mp3");
     }
 }

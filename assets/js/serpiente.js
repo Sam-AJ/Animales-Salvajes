@@ -5,7 +5,7 @@ export default class Serpiente extends Animal {
         super(nombre, edad, img, comentarios, sonido);
     }
 
-    sisear() {
-
+    Sisear() {
+        this.setSonido("assets/sounds/Siseo.mp3");
     }
 }
