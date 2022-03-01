@@ -1,4 +1,8 @@
+// Importando clase padre
+
 import Animal from "./animal.js";
+
+// Creando y exportando clase hija
 
 export default class Leon extends Animal {
     constructor(nombre, edad, img, comentarios, sonido) {

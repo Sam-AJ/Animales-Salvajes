@@ -1,9 +1,12 @@
+// Importando clases hijas
+
 import Leon from "./leon.js";
 import Lobo from "./lobo.js";
 import Oso from "./oso.js";
 import Serpiente from "./serpiente.js";
 import Aguila from "./aguila.js";
 
+//Método para consultar API
 
 let peticionApi = (url) => {
     return new Promise((resolve, reject) => {
@@ -13,18 +16,18 @@ let peticionApi = (url) => {
             reject(error);
         })
     })
-}
+};
+
+// Módulo IIFE para mostrar la imagen en el preview al seleccionar un animal
 
 let animalPreview = (() => {
     const getImage = async () => {
         const { animales } = await peticionApi("http://localhost:5500/animales.json");
-        console.log(animales);
 
         $("#animal").change(() => {
             const animal = $("#animal").val();
             const imagenAnimal = animales.find((item) => item.name == animal).imagen;
             $("#preview").css("background-image", `url("assets/imgs/${imagenAnimal}")`)
-            console.log($("#preview").css("background-image"));
         })
 
     }
@@ -35,9 +38,9 @@ let animalPreview = (() => {
     }
 })();
 
+// Módulo IIFE que recibe las instancias para crear la tarjeta y el modal correspondiente
 
-
-let modulo = (() => {
+let tarjetaModal = (() => {
     let listaAnimales = [];
     
     window.mostrarModal = (index) => {
@@ -46,9 +49,9 @@ let modulo = (() => {
         $("#exampleModal .modal-body").html(`
             <img src="assets/imgs/${animalModal.img}" width="100%">
             <div class="text-center text-light">
-                <p>${animalModal.edad}</p>
+                <p class="pt-2">${animalModal.edad}</p>
                 <p>Comentarios</p>
-                <br>
+                <hr>
                 <p>${animalModal.comentarios}</p>
             </div>
         `);
@@ -56,10 +59,10 @@ let modulo = (() => {
     }
 
     let crearTarjeta = () => {
-        $("#Animales").html('');
+        $("#Animales").html("");
         listaAnimales.forEach((item, indice) => {
             $("#Animales").append(`
-                <div class="card h-30 mx-1" style="width: 14rem;">
+                <div class="card mx-1" style="width: 14rem;">
                     <img src="assets/imgs/${item.img}" class="card-img-top" alt="${item.nombre}" onClick="mostrarModal(${indice})">
                     <div class="card-footer">
                         <audio controls class="w-100">
@@ -83,9 +86,11 @@ let modulo = (() => {
     }
 })();
 
-$(() => {
+$(() => { // Función Ready
 
     animalPreview.showImage();
+
+    // Funcionalidad del botón que registra animales
 
     $("#btnRegistrar").click(evento => {
         evento.preventDefault();
@@ -94,6 +99,8 @@ $(() => {
         let edad = $("#edad").val();
         let comentarios = $("#comentarios").val();
         let sonido = "";
+
+        // Declaración switch para generar la instancia correspondiente de acuerdo al animal que se selecciona
 
         switch (nombre) {
             case "Leon":
@@ -122,10 +129,19 @@ $(() => {
                 break;
         }
 
+        // Validando que todos los campos contengan información antes de registrar un animal
+
         if (nombre && edad && comentarios) {
-            modulo.agregarAnimal(animal);
+            tarjetaModal.agregarAnimal(animal);
         } else {
             alert("Faltan datos por llenar")
         }
+
+        // Limpiando el formulario
+
+        $("#animal option:first").prop("selected", "selected");
+        $("#edad option:first").prop("selected", "selected");
+        $("#comentarios").val("");
+        $("#preview").css("background-image", `url("assets/imgs/lion.svg")`)
     })
 });

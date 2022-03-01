@@ -1,3 +1,5 @@
+// Creando y exportando clase padre
+
 export default class Animal {
     constructor(nombre, edad, img, comentarios, sonido) {
         let _nombre = nombre;
@@ -9,9 +11,9 @@ export default class Animal {
         this.getNombre = () => _nombre;
         this.getEdad = () => _edad;
         this.getImg = () => _img;
+        this.getComentarios = () => _comentarios;
         this.getSonido = () => _sonido;
 
-        this.setComentarios = (nuevoComentarios) => _comentarios = nuevoComentarios;
         this.setSonido = (nuevoSonido) => _sonido = nuevoSonido;
 
     }
@@ -28,12 +30,12 @@ export default class Animal {
         return this.getImg();
     }
 
-    get sonido() {
-        return this.getSonido();
+    get comentarios() {
+        return this.getComentarios();
     }
 
-    set comentarios(nuevo_comentarios) {
-        this.setComentarios(nuevo_comentarios);
+    get sonido() {
+        return this.getSonido();
     }
 
     set sonido(nuevo_sonido) {
